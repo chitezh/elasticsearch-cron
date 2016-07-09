@@ -32,7 +32,7 @@ Elasticsearch-cron provides support for, and is regularly tested against, Elasti
 
 ## Examples
 
-Create a client instance
+**Create a client instance**
 ```js
 const EsCron = require('elasticsearch-cron');
 const client = new EsCron({
@@ -40,7 +40,7 @@ const client = new EsCron({
   log: 'trace'
 });
 ```
-Scheduling a search
+**Scheduling a cron search**
 
 syntax
 ```
@@ -60,7 +60,7 @@ let search = client.search({
   },
   '*/30 * * * * *');
 ````
-This task intelligently runs in the background varying the range of queries in each run. See internal query structure
+This task intelligently runs in the background varying the time range for queries in each run. See internal query structure
 ```js
 {
   query: {
@@ -88,14 +88,14 @@ It will query elasticsearch for all changes since the last run date. Eg.
 If you set a cron task to run at `12am` everyday. The last run for a job on `12am monday` will be `12am sunday`. That way, all the changes in the 24-hour is captured.
 
 
-Parse result on each run
+**Parse result on each run**
 ```js
 search.on('run', (data) => {
   console.log(`Came back with the result ${data}`);
 });
 ```
 
-Catch errors
+**Catch errors**
 ```js
 search.on('error', (ex) => {
   console.log(`An error occured, ${ex}`);

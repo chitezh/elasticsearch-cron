@@ -1,5 +1,5 @@
 'use strict';
-const _ = require('underscore'), 
+const _ = require('underscore'),
   es = require('elasticsearch'),
   Core = require('./lib/utils'),
   CronJob = require('cron').CronJob,
@@ -26,10 +26,6 @@ ElasticsearchCron.prototype.search = function(query, time, size, index, type) {
         let currentDate = new Date();
         let lastRun = Core.getTimeRange(time, currentDate);
 
-        /*    console.log("currentTime", currentDate.toISOString())
-            console.log("lastRun", lastRun)
-            console.log("____=======================================___\n")*/
-
         //query body
         const body = {
           query: {
@@ -53,16 +49,14 @@ ElasticsearchCron.prototype.search = function(query, time, size, index, type) {
           body
         };
 
-        if(index) _.extend(searchObject, {index: index});
-        if(type)  _.extend(searchObject, {type: type});
+        if (index) _.extend(searchObject, { index: index });
+        if (type) _.extend(searchObject, { type: type });
 
         self.esFac.search(searchObject)
           .then((data) => {
-            //emit results
             self.myEmitter.emit('run', data);
           })
       },
-      //start immediately
       start: true
     });
 

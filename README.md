@@ -4,8 +4,8 @@
 An event driven utitily for scheduling elasticsearch jobs extending the capabilities of the official elasticseach javascript client. 
 Ever wanted to query elastic search periodically and perform a task with the result or want to watch a particular keyword but considers elaticwatch too complex and expensive
 
-[![Coverage Status](https://img.shields.io/badge/elasticsearch--cron-passing-brightgreen.svg?style=flat-square)]
-[![Dependencies up to date](http://img.shields.io/david/elastic/elasticsearch-js.svg?style=flat-square)]
+[![Coverage Status](https://img.shields.io/badge/elasticsearch--cron-passing-brightgreen.svg?style=flat-square)]()
+[![Dependencies up to date](http://img.shields.io/david/elastic/elasticsearch-js.svg?style=flat-square)]()
 
 ## Features
 

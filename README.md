@@ -41,18 +41,42 @@ const client = new EsCron({
 });
 ```
 Scheduling a search
+
 syntax
 ```
-let search = client.search(query, cron-pattern)
+let search = client.search(query, cron-pattern, size(defaults to 1000), index(optional), type(optional))
 ```
 example. query every 30seconds
 ```js
-let search = client.search({ 
-  "match": {
-     "log": "BitunnelRouteException" 
-    }
-  }, '*/30 * * * * *');
+let search = client.search({ "match": { "log": "BitunnelRouteException"  } }, '*/30 * * * * *');
 ````
+This task intelligently runs in the background varying the range of queries in each run. See internal query structure
+```js
+{
+  query: {
+    "bool": {
+      "must": [
+        { 
+          "match": {
+            "log": "BitunnelRouteException" 
+          }
+        },
+        {
+          "range": {
+            "@timestamp": {
+              "gte": lastRun,
+              "lte": currentTime
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+It will query elasticsearch for all changes since the last run date. Eg.
+If you set a cron task to run at `12am` everyday. The last run for a job on `12am monday` will be `12am sunday`. That way, all the changes in the 24-hour is captured.
+
 
 Parse result on each run
 ```js

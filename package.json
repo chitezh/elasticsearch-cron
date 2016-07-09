@@ -1,0 +1,41 @@
+{
+  "name": "elasticsearch-cron",
+  "version": "0.1.1",
+  "description": "A utility for scheduling elasticsearch queries",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chitezh/elasticsearch-cron.git"
+  },
+  "keywords": [
+    "elasticsearch",
+    "cron",
+    "schedule",
+    "query",
+    "time-based",
+    "cronjob",
+    "job"
+  ],
+  "author": "Kingsley Ochu <chitezh@hydromars.com> (http://www.hydromars.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chitezh/elasticsearch-cron/issues"
+  },
+  "homepage": "https://github.com/chitezh/elasticsearch-cron#readme",
+  "dependencies": {
+    "cron": "^1.1.0",
+    "cron-parser": "^2.1.0",
+    "elasticsearch": "^11.0.1",
+    "moment": "^2.14.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.1",
+    "gulp-nodemon": "^2.1.0",
+    "jshint": "^2.9.2"
+  }
+}

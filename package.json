@@ -1,6 +1,6 @@
 {
   "name": "elasticsearch-cron",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A utility for scheduling elasticsearch queries",
   "main": "index.js",
   "scripts": {

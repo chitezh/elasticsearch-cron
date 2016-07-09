@@ -56,6 +56,9 @@ ElasticsearchCron.prototype.search = function(query, time, size, index, type) {
           .then((data) => {
             self.myEmitter.emit('run', data);
           })
+          .catch((err) => {
+            self.myEmitter.emit('error', err);
+          })
       },
       start: true
     });

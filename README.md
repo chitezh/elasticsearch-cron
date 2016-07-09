@@ -122,7 +122,7 @@ See [crontab](https://crontab.org) for more information
 We accept contributions via Pull Requests on [Github](https://github.com/chitezh/elasticsearch-cron).
 
 
-### Pull Requests
+##  Pull Requests
 
 - **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
 

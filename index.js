@@ -1,5 +1,5 @@
 'use strict';
-const _ = require('underscore'),
+const _ = require('underscore'), 
   es = require('elasticsearch'),
   Core = require('./lib/utils'),
   CronJob = require('cron').CronJob,
@@ -17,7 +17,7 @@ class ElasticsearchCron {
 /**
  *Implement cron search
  */
-ElasticsearchCron.prototype.search = function(query, time, autoIncrement) {
+ElasticsearchCron.prototype.search = function(query, time, size, index, type) {
   let self = this;
   try {
     let searchJob = new CronJob({
@@ -26,32 +26,41 @@ ElasticsearchCron.prototype.search = function(query, time, autoIncrement) {
         let currentDate = new Date();
         let lastRun = Core.getTimeRange(time, currentDate);
 
-        console.log("currentTime", currentDate.toISOString())
-        console.log("lastRun", lastRun)
-        console.log("____=======================================___\n")
+        /*    console.log("currentTime", currentDate.toISOString())
+            console.log("lastRun", lastRun)
+            console.log("____=======================================___\n")*/
 
-        self.esFac.search({
-          size: 1000,
-          body: {
-            query: {
-              "bool": {
-                "must": [
-                  query, {
-                    "range": {
-                      "@timestamp": {
-                        "gte": lastRun,
-                        "lte": currentDate
-                      }
+        //query body
+        const body = {
+          query: {
+            "bool": {
+              "must": [
+                query, {
+                  "range": {
+                    "@timestamp": {
+                      "gte": lastRun,
+                      "lte": currentDate
                     }
                   }
-                ]
-              }
+                }
+              ]
             }
           }
-        }).then((data) => {
-          //emit results
-          self.myEmitter.emit('run', data);
-        })
+        };
+
+        const searchObject = {
+          size: size || 1000,
+          body
+        };
+
+        if(index) _.extend(searchObject, {index: index});
+        if(type)  _.extend(searchObject, {type: type});
+
+        self.esFac.search(searchObject)
+          .then((data) => {
+            //emit results
+            self.myEmitter.emit('run', data);
+          })
       },
       //start immediately
       start: true
@@ -64,8 +73,8 @@ ElasticsearchCron.prototype.search = function(query, time, autoIncrement) {
 }
 
 /**
-* @Todo
-* Extend more APIs
-*/
+ * @Todo
+ * Extend more APIs
+ */
 
 module.exports = ElasticsearchCron;

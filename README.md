@@ -44,11 +44,21 @@ Scheduling a search
 
 syntax
 ```
-let search = client.search(query, cron-pattern, size(defaults to 1000), index(optional), type(optional))
+let search = client.search(query,
+  cron-pattern,
+  size(defaults to 1000),
+  index(optional),
+  type(optional))
 ```
 example. query every 30seconds
 ```js
-let search = client.search({ "match": { "log": "BitunnelRouteException"  } }, '*/30 * * * * *');
+let search = client.search({ 
+  "match":
+    { 
+      "log": "BitunnelRouteException"  
+    }
+  },
+  '*/30 * * * * *');
 ````
 This task intelligently runs in the background varying the range of queries in each run. See internal query structure
 ```js
